@@ -1,29 +1,33 @@
-node {
+pipeline {
 
+   agent any
 
-    stage('checkout') {
+      stages {
 
-                git 'https://github.com/MadhuriPotu/jenkins.git'
+         stage('Clone Repostory')  {
 
-                    }
-def project_path = 'spring-boot-samples/spring-boot-sample-atmosphere'
+	        steps {
 
-    dir (project_path)  {
+	           checkout scm
+	      
+	           echo "Madhuri"
 
-        stage('compile, test and package') {
+	             }
+	       }
 
-            sh 'mvn clean package'
- 
-                    }
- 
-        stage('Archive and junit') {
+	     stage('Build') {
+	  
+	        steps  {
+
+	            sh 'mvn compile'
+               
+	            echo "compilation done"
+
+	              }
             
-            junit '**//*target/surefire-reports/TEST-*.xml'
-
-            archiveArtifacts 'target*//*.jar'
-
-                        }
-
             }
 
-}
+        }
+  
+  }
+	    
